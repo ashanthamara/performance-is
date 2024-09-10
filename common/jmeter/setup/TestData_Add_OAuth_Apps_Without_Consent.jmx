@@ -303,7 +303,7 @@ if (y == 0) {
           </collectionProp>
         </HeaderManager>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create SP">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create SP" enabled="true">
           <stringProp name="HTTPSampler.domain">${is_host}</stringProp>
           <stringProp name="HTTPSampler.port">${is_port}</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -530,7 +530,7 @@ if (cm != null) {
         </JSR223PostProcessor>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Create Action" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Create Action">
         <intProp name="ThreadGroup.num_threads">1</intProp>
         <stringProp name="ThreadGroup.ramp_time">${rampUpPeriod}</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -596,7 +596,7 @@ if (y == 0) {
           </collectionProp>
         </HeaderManager>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Action" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Action">
           <stringProp name="HTTPSampler.domain">${is_host}</stringProp>
           <stringProp name="HTTPSampler.port">${is_port}</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -613,7 +613,7 @@ if (y == 0) {
     &quot;name&quot;: &quot;Access Token Pre Issue&quot;,&#xd;
     &quot;description&quot;: &quot;This is the configuration of pre-action for issuing access token.&quot;,&#xd;
     &quot;endpoint&quot;: {&#xd;
-        &quot;uri&quot;: &quot;https://myextension99.lk/token&quot;,&#xd;
+        &quot;uri&quot;: &quot;https://d0dfc393-099c-436d-9fbc-454295cf952c-prod.e1-us-east-azure.choreoapis.dev/perftest/preissueaccesstoken/v1.0/readTimeoutResponse&quot;,&#xd;
         &quot;authentication&quot;: {&#xd;
             &quot;properties&quot;: {&#xd;
                 &quot;username&quot;: &quot;auth_username&quot;,&#xd;
@@ -639,7 +639,7 @@ if (y == 0) {
             <stringProp name="Assertion.custom_message"></stringProp>
           </ResponseAssertion>
           <hashTree/>
-          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">Content-Type</stringProp>
