@@ -258,7 +258,7 @@ if (y == 0) {
             &lt;xsd1:oauthConsumerSecret&gt;${consumerSecretPrefix}${sp_count_id}${tenantDomain1}&lt;/xsd1:oauthConsumerSecret&gt;&#xd;
             &lt;xsd1:pkceMandatory&gt;false&lt;/xsd1:pkceMandatory&gt;&#xd;
             &lt;xsd1:pkceSupportPlain&gt;true&lt;/xsd1:pkceSupportPlain&gt;&#xd;
-            &lt;xsd1:tokenType&gt;${tokenIssuer}&lt;/xsd1:tokenType&gt;&#xd;
+            &lt;xsd1:tokenType&gt;JWT&lt;/xsd1:tokenType&gt;&#xd;
          &lt;/xsd:application&gt;&#xd;
       &lt;/xsd:registerOAuthApplicationData&gt;&#xd;
    &lt;/soapenv:Body&gt;&#xd;
@@ -649,7 +649,7 @@ if (y == 0) {
             &lt;xsd1:oauthConsumerSecret&gt;${consumerSecretPrefix}${sp_count_id}${tenantDomain2}&lt;/xsd1:oauthConsumerSecret&gt;&#xd;
             &lt;xsd1:pkceMandatory&gt;false&lt;/xsd1:pkceMandatory&gt;&#xd;
             &lt;xsd1:pkceSupportPlain&gt;true&lt;/xsd1:pkceSupportPlain&gt;&#xd;
-            &lt;xsd1:tokenType&gt;${tokenIssuer}&lt;/xsd1:tokenType&gt;&#xd;
+            &lt;xsd1:tokenType&gt;JWT&lt;/xsd1:tokenType&gt;&#xd;
          &lt;/xsd:application&gt;&#xd;
       &lt;/xsd:registerOAuthApplicationData&gt;&#xd;
    &lt;/soapenv:Body&gt;&#xd;
@@ -900,40 +900,7 @@ if (y == 0) {
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
-        <boolProp name="ResultCollector.error_logging">false</boolProp>
-        <objProp>
-          <name>saveConfig</name>
-          <value class="SampleSaveConfiguration">
-            <time>true</time>
-            <latency>true</latency>
-            <timestamp>true</timestamp>
-            <success>true</success>
-            <label>true</label>
-            <code>true</code>
-            <message>true</message>
-            <threadName>true</threadName>
-            <dataType>true</dataType>
-            <encoding>false</encoding>
-            <assertions>true</assertions>
-            <subresults>true</subresults>
-            <responseData>false</responseData>
-            <samplerData>false</samplerData>
-            <xml>false</xml>
-            <fieldNames>false</fieldNames>
-            <responseHeaders>false</responseHeaders>
-            <requestHeaders>false</requestHeaders>
-            <responseDataOnError>false</responseDataOnError>
-            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
-            <assertionsResultsToSave>0</assertionsResultsToSave>
-            <bytes>true</bytes>
-            <threadCounts>true</threadCounts>
-          </value>
-        </objProp>
-        <stringProp name="filename"></stringProp>
-      </ResultCollector>
-      <hashTree/>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Create Action" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Create Action">
         <stringProp name="ThreadGroup.num_threads">${noOfThreads}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${rampUpPeriod}</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -1082,6 +1049,39 @@ if (cm != null) {
         </LoopController>
         <hashTree/>
       </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <threadCounts>true</threadCounts>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
     </hashTree>
   </hashTree>
 </jmeterTestPlan>
