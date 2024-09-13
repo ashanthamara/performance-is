@@ -124,7 +124,7 @@
         </collectionProp>
       </Arguments>
       <hashTree/>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Authorization Code Redirect With Consent">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Tenant1 - Authorization Code Redirect With Consent">
         <boolProp name="ThreadGroup.delayedStart">true</boolProp>
         <stringProp name="ThreadGroup.num_threads">${noOfThreads}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${rampUpPeriod}</stringProp>
@@ -192,6 +192,7 @@ String username = &quot;&quot;;
 String client_secret = &quot;&quot;;
 String client_id = &quot;&quot;;
 String redirect_uri = &quot;&quot;;
+String tenantDomain = &quot;&quot;;
 
 username = &quot;${usernamePrefix}${user_count_id}@${tenantDomainPrefix}${tenant_idx}.com&quot;;
 client_secret = &quot;${consumerSecretPrefix}${sp_count_id_random}${tenantDomainPrefix}${tenant_idx}&quot;;
@@ -199,7 +200,7 @@ client_id = &quot;${consumerKeyPrefix}${sp_count_id_random}${tenantDomainPrefix}
 redirect_uri = &quot;${callback_url_prefix}${sp_count_id_random}${tenantDomainPrefix}${tenant_idx}&quot;;
 tokenEndpoint = &quot;/t/${tenantDomainPrefix}${tenant_idx}.com/oauth2/token&quot;;
 authEndpoint = &quot;/t/${tenantDomainPrefix}${tenant_idx}.com/oauth2/authorize&quot;;
-
+tenantDomain = &quot;${tenantDomainPrefix}${tenant_idx}.com&quot;;
 
 vars.put(&quot;username&quot;, new String(username));
 vars.put(&quot;client_secret&quot;, new String(client_secret));
@@ -207,6 +208,7 @@ vars.put(&quot;client_id&quot;, new String(client_id));
 vars.put(&quot;redirect_uri&quot;,new String(redirect_uri));
 vars.put(&quot;tokenEndpoint&quot;,new String(tokenEndpoint));
 vars.put(&quot;authEndpoint&quot;,new String(authEndpoint));
+vars.put(&quot;tenantDomain&quot;,new String(tenantDomain));
 </stringProp>
         </BeanShellPreProcessor>
         <hashTree/>
@@ -245,7 +247,7 @@ if (y == 0 || &quot;active-passive&quot;.equals(deploymentType)) {
           </collectionProp>
         </HeaderManager>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="1 Send request to authorize end point">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tenant1 - 1 Send request to authorize end point">
           <stringProp name="HTTPSampler.domain">${is_host}</stringProp>
           <stringProp name="HTTPSampler.port">${is_port}</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -323,11 +325,11 @@ if (y == 0 || &quot;active-passive&quot;.equals(deploymentType)) {
           </RegexExtractor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="2 Common Auth Login HTTP Request">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tenant1 - 2 Common Auth Login HTTP Request">
           <stringProp name="HTTPSampler.domain">${is_host}</stringProp>
           <stringProp name="HTTPSampler.port">${is_port}</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
-          <stringProp name="HTTPSampler.path">/commonauth</stringProp>
+          <stringProp name="HTTPSampler.path">/t/${tenantDomain}/commonauth</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
@@ -395,14 +397,14 @@ if (y == 0 || &quot;active-passive&quot;.equals(deploymentType)) {
           </RegexExtractor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="3 Authorize call">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tenant1 - 3 Authorize call">
           <stringProp name="TestPlan.comments">${usernamePrefix}${user_count_id}
 
 ${password}</stringProp>
           <stringProp name="HTTPSampler.domain">${is_host}</stringProp>
           <stringProp name="HTTPSampler.port">${is_port}</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
-          <stringProp name="HTTPSampler.path">oauth2/authorize?sessionDataKey=${sessionDataKey}</stringProp>
+          <stringProp name="HTTPSampler.path">t/${tenantDomain}/oauth2/authorize?sessionDataKey=${sessionDataKey}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
@@ -458,17 +460,17 @@ ${password}</stringProp>
           </RegexExtractor>
           <hashTree/>
         </hashTree>
-        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="true">
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller">
           <stringProp name="IfController.condition">&quot;${code}&quot;==&quot;&quot;</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
           <boolProp name="IfController.useExpression">false</boolProp>
         </IfController>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="4 Send Consent Approve Request" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tenant1 - 4 Send Consent Approve Request">
             <stringProp name="HTTPSampler.domain">${is_host}</stringProp>
             <stringProp name="HTTPSampler.port">${is_port}</stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
-            <stringProp name="HTTPSampler.path">/oauth2/authorize</stringProp>
+            <stringProp name="HTTPSampler.path">/t/${tenantDomain}/oauth2/authorize</stringProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
@@ -527,7 +529,7 @@ ${password}</stringProp>
             <hashTree/>
           </hashTree>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="5 Get tokens">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tenant1 - 5 Get tokens">
           <stringProp name="HTTPSampler.domain">${is_host}</stringProp>
           <stringProp name="HTTPSampler.port">${is_port}</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -652,7 +654,7 @@ ${password}</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Authorization Code Redirect With Consent">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Tenant2 - Authorization Code Redirect With Consent">
         <boolProp name="ThreadGroup.delayedStart">true</boolProp>
         <stringProp name="ThreadGroup.num_threads">${noOfThreads}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${rampUpPeriod}</stringProp>
@@ -720,6 +722,7 @@ String username = &quot;&quot;;
 String client_secret = &quot;&quot;;
 String client_id = &quot;&quot;;
 String redirect_uri = &quot;&quot;;
+String tenantDomain = &quot;&quot;;
 
 username = &quot;${usernamePrefix}${user_count_id}@${tenantDomainPrefix}${tenant_idx}.com&quot;;
 client_secret = &quot;${consumerSecretPrefix}${sp_count_id_random}${tenantDomainPrefix}${tenant_idx}&quot;;
@@ -727,6 +730,7 @@ client_id = &quot;${consumerKeyPrefix}${sp_count_id_random}${tenantDomainPrefix}
 redirect_uri = &quot;${callback_url_prefix}${sp_count_id_random}${tenantDomainPrefix}${tenant_idx}&quot;;
 tokenEndpoint = &quot;/t/${tenantDomainPrefix}${tenant_idx}.com/oauth2/token&quot;;
 authEndpoint = &quot;/t/${tenantDomainPrefix}${tenant_idx}.com/oauth2/authorize&quot;;
+tenantDomain = &quot;${tenantDomainPrefix}${tenant_idx}.com&quot;;
 
 vars.put(&quot;username&quot;, new String(username));
 vars.put(&quot;client_secret&quot;, new String(client_secret));
@@ -734,6 +738,7 @@ vars.put(&quot;client_id&quot;, new String(client_id));
 vars.put(&quot;redirect_uri&quot;,new String(redirect_uri));
 vars.put(&quot;tokenEndpoint&quot;,new String(tokenEndpoint));
 vars.put(&quot;authEndpoint&quot;,new String(authEndpoint));
+vars.put(&quot;tenantDomain&quot;,new String(tenantDomain));
 </stringProp>
         </BeanShellPreProcessor>
         <hashTree/>
@@ -757,13 +762,13 @@ if (y == 0 || &quot;active-passive&quot;.equals(deploymentType)) {
 }</stringProp>
         </BeanShellPreProcessor>
         <hashTree/>
-        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager">
           <collectionProp name="CookieManager.cookies"/>
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
           <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
         </CookieManager>
         <hashTree/>
-        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
           <collectionProp name="HeaderManager.headers">
             <elementProp name="" elementType="Header">
               <stringProp name="Header.name">X-Server-Select</stringProp>
@@ -772,7 +777,7 @@ if (y == 0 || &quot;active-passive&quot;.equals(deploymentType)) {
           </collectionProp>
         </HeaderManager>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="1 Send request to authorize end point">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tenant2 - 1 Send request to authorize end point">
           <stringProp name="HTTPSampler.domain">${is_host}</stringProp>
           <stringProp name="HTTPSampler.port">${is_port}</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -850,11 +855,11 @@ if (y == 0 || &quot;active-passive&quot;.equals(deploymentType)) {
           </RegexExtractor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="2 Common Auth Login HTTP Request">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tenant2 - 2 Common Auth Login HTTP Request">
           <stringProp name="HTTPSampler.domain">${is_host}</stringProp>
           <stringProp name="HTTPSampler.port">${is_port}</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
-          <stringProp name="HTTPSampler.path">/commonauth</stringProp>
+          <stringProp name="HTTPSampler.path">/t/${tenantDomain}/commonauth</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
@@ -922,14 +927,14 @@ if (y == 0 || &quot;active-passive&quot;.equals(deploymentType)) {
           </RegexExtractor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="3 Authorize call" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tenant2 - 3 Authorize call">
           <stringProp name="TestPlan.comments">${usernamePrefix}${user_count_id}
 
 ${password}</stringProp>
           <stringProp name="HTTPSampler.domain">${is_host}</stringProp>
           <stringProp name="HTTPSampler.port">${is_port}</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
-          <stringProp name="HTTPSampler.path">oauth2/authorize?sessionDataKey=${sessionDataKey}</stringProp>
+          <stringProp name="HTTPSampler.path">t/${tenantDomain}/oauth2/authorize?sessionDataKey=${sessionDataKey}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
@@ -985,17 +990,17 @@ ${password}</stringProp>
           </RegexExtractor>
           <hashTree/>
         </hashTree>
-        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="true">
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller">
           <stringProp name="IfController.condition">&quot;${code}&quot;==&quot;&quot;</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
           <boolProp name="IfController.useExpression">false</boolProp>
         </IfController>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="4 Send Consent Approve Request" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tenant2 - 4 Send Consent Approve Request">
             <stringProp name="HTTPSampler.domain">${is_host}</stringProp>
             <stringProp name="HTTPSampler.port">${is_port}</stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
-            <stringProp name="HTTPSampler.path">/oauth2/authorize</stringProp>
+            <stringProp name="HTTPSampler.path">/t/${tenantDomain}//oauth2/authorize</stringProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
@@ -1054,7 +1059,7 @@ ${password}</stringProp>
             <hashTree/>
           </hashTree>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="5 Get tokens" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tenant2 - 5 Get tokens">
           <stringProp name="HTTPSampler.domain">${is_host}</stringProp>
           <stringProp name="HTTPSampler.port">${is_port}</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
