@@ -993,7 +993,7 @@ if (y == 0) {
     &quot;name&quot;: &quot;Access Token Pre Issue&quot;,&#xd;
     &quot;description&quot;: &quot;This is the configuration of pre-action for issuing access token.&quot;,&#xd;
     &quot;endpoint&quot;: {&#xd;
-        &quot;uri&quot;: &quot;https://d0dfc393-099c-436d-9fbc-454295cf952c-prod.e1-us-east-azure.choreoapis.dev/perftest/preissueaccesstoken/v1.0/readTimeoutResponse&quot;,&#xd;
+        &quot;uri&quot;: &quot;https://d0dfc393-099c-436d-9fbc-454295cf952c-prod.e1-us-east-azure.choreoapis.dev/perftest/preissueaccesstoken/v1.0/successResponse&quot;,&#xd;
         &quot;authentication&quot;: {&#xd;
             &quot;properties&quot;: {&#xd;
                 &quot;username&quot;: &quot;auth_username&quot;,&#xd;
